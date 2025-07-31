@@ -19,9 +19,9 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:cov": "jest --coverage",
-    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "test:logger": "jest logger.test.ts",
+    "test:performance": "jest --testNamePattern='Performance|Event Loop'",
+    "test:integration": "jest --testNamePattern='NestJS'",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "migration:generate": "npm run typeorm migration:generate -d src/config/typeorm.config.ts",
     "migration:run": "npm run typeorm migration:run -d src/config/typeorm.config.ts",
@@ -40,6 +40,7 @@
     "@nestjs/schedule": "^6.0.0",
     "@nestjs/swagger": "^11.2.0",
     "@nestjs/typeorm": "^11.0.0",
+    "@types/pino": "^7.0.4",
     "aws-sdk": "^2.1692.0",
     "axios": "^1.11.0",
     "axios-retry": "^4.5.0",
@@ -47,7 +48,9 @@
     "class-validator": "^0.14.2",
     "pg": "^8.16.3",
     "pino": "^9.7.0",
+    "pino-abstract-transport": "^2.0.0",
     "pino-http": "^10.5.0",
+    "pino-roll": "^3.1.0",
     "reflect-metadata": "^0.2.2",
     "request-ip": "^3.3.0",
     "rxjs": "^7.8.2",
@@ -59,16 +62,21 @@
     "@nestjs/testing": "^11.1.5",
     "@swc/cli": "^0.7.8",
     "@swc/core": "^1.13.3",
+    "@types/chai": "^5.2.2",
     "@types/express": "^5.0.3",
     "@types/jest": "^30.0.0",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^24.1.0",
     "@types/supertest": "^6.0.3",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
     "@typescript-eslint/parser": "^8.38.0",
+    "chai": "^5.2.1",
     "eslint": "^9.32.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.3",
     "jest": "^30.0.5",
+    "mocha": "^11.7.1",
+    "p-event": "^6.0.1",
     "pino-pretty": "^13.0.0",
     "prettier": "^3.6.2",
     "source-map-support": "^0.5.21",
@@ -80,18 +88,20 @@
     "typescript": "^5.8.3"
   },
   "jest": {
+    "preset": "ts-jest",
     "moduleFileExtensions": [
       "js",
       "json",
       "ts"
     ],
     "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
+    "testMatch": ["**/*.test.ts"],
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "src/**/*.ts",
+      "!src/**/*.d.ts"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
