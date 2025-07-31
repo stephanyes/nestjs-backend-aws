@@ -1,0 +1,529 @@
+{
+    "books": [
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "a908c5b8-52c8-42b5-ba00-0ec92cc9dca3"
+                    },
+                    "title": {
+                        "S": "1984"
+                    },
+                    "author": {
+                        "S": "George Orwell"
+                    },
+                    "publicationYear": {
+                        "N": "1962"
+                    },
+                    "views": {
+                        "N": "63"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "2c9e51b7-1123-436c-a081-6d48629f2ee3"
+                    },
+                    "title": {
+                        "S": "Dune"
+                    },
+                    "author": {
+                        "S": "Frank Herbert"
+                    },
+                    "publicationYear": {
+                        "N": "1959"
+                    },
+                    "views": {
+                        "N": "25"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "37980432-c4d5-4afa-aa16-35e0c6cb0cb9"
+                    },
+                    "title": {
+                        "S": "The Hobbit"
+                    },
+                    "author": {
+                        "S": "J.R.R. Tolkien"
+                    },
+                    "publicationYear": {
+                        "N": "1956"
+                    },
+                    "views": {
+                        "N": "79"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "17fa2905-812b-4ef1-8f94-04d68ecae43f"
+                    },
+                    "title": {
+                        "S": "Brave New World"
+                    },
+                    "author": {
+                        "S": "Aldous Huxley"
+                    },
+                    "publicationYear": {
+                        "N": "1979"
+                    },
+                    "views": {
+                        "N": "39"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "ebda177d-f32c-4db5-956e-d3f032b498a3"
+                    },
+                    "title": {
+                        "S": "Fahrenheit 451"
+                    },
+                    "author": {
+                        "S": "Ray Bradbury"
+                    },
+                    "publicationYear": {
+                        "N": "1962"
+                    },
+                    "views": {
+                        "N": "10"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "5c428e47-4bf6-47df-92b8-9cefc34c03e0"
+                    },
+                    "title": {
+                        "S": "The Catcher in the Rye"
+                    },
+                    "author": {
+                        "S": "J.D. Salinger"
+                    },
+                    "publicationYear": {
+                        "N": "1976"
+                    },
+                    "views": {
+                        "N": "51"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "73564363-b64a-43e9-8aa0-bb7fb77a09d2"
+                    },
+                    "title": {
+                        "S": "To Kill a Mockingbird"
+                    },
+                    "author": {
+                        "S": "Harper Lee"
+                    },
+                    "publicationYear": {
+                        "N": "1995"
+                    },
+                    "views": {
+                        "N": "59"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "71e2d25e-3ccb-41e2-98a6-6346634c3101"
+                    },
+                    "title": {
+                        "S": "The Great Gatsby"
+                    },
+                    "author": {
+                        "S": "F. Scott Fitzgerald"
+                    },
+                    "publicationYear": {
+                        "N": "1981"
+                    },
+                    "views": {
+                        "N": "84"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "72c39b2a-88cb-415d-8962-934c988e59bd"
+                    },
+                    "title": {
+                        "S": "The Lord of the Rings"
+                    },
+                    "author": {
+                        "S": "J.K. Rowling"
+                    },
+                    "publicationYear": {
+                        "N": "2020"
+                    },
+                    "views": {
+                        "N": "3"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "7584ccbc-80eb-4296-ac06-1d657f1dba34"
+                    },
+                    "title": {
+                        "S": "Harry Potter and the Sorcerer's Stone"
+                    },
+                    "author": {
+                        "S": "Kurt Vonnegut"
+                    },
+                    "publicationYear": {
+                        "N": "2003"
+                    },
+                    "views": {
+                        "N": "42"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "6a977185-43ad-48a7-bba1-582ace35f13b"
+                    },
+                    "title": {
+                        "S": "Animal Farm"
+                    },
+                    "author": {
+                        "S": "Margaret Atwood"
+                    },
+                    "publicationYear": {
+                        "N": "1944"
+                    },
+                    "views": {
+                        "N": "73"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "1e3b3626-9a28-495d-b6a4-d69d158b3bbc"
+                    },
+                    "title": {
+                        "S": "Slaughterhouse-Five"
+                    },
+                    "author": {
+                        "S": "William Gibson"
+                    },
+                    "publicationYear": {
+                        "N": "2018"
+                    },
+                    "views": {
+                        "N": "2"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "ac758765-bc23-4b8e-8276-20f825fe2b05"
+                    },
+                    "title": {
+                        "S": "The Handmaid's Tale"
+                    },
+                    "author": {
+                        "S": "Philip K. Dick"
+                    },
+                    "publicationYear": {
+                        "N": "1969"
+                    },
+                    "views": {
+                        "N": "29"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "3e6cfae3-d0b6-4396-9fa5-9060a1ed6f81"
+                    },
+                    "title": {
+                        "S": "Neuromancer"
+                    },
+                    "author": {
+                        "S": "Cormac McCarthy"
+                    },
+                    "publicationYear": {
+                        "N": "1950"
+                    },
+                    "views": {
+                        "N": "94"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "359c2cef-d08e-4841-8f0b-c1725a947142"
+                    },
+                    "title": {
+                        "S": "Do Androids Dream of Electric Sheep?"
+                    },
+                    "author": {
+                        "S": "Stephen King"
+                    },
+                    "publicationYear": {
+                        "N": "2003"
+                    },
+                    "views": {
+                        "N": "29"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "4e237a79-b0a1-4dec-b924-451cf74f8644"
+                    },
+                    "title": {
+                        "S": "Snow Crash"
+                    },
+                    "author": {
+                        "S": "Anthony Burgess"
+                    },
+                    "publicationYear": {
+                        "N": "1974"
+                    },
+                    "views": {
+                        "N": "53"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "661f2f58-dbd4-4e99-a388-5d09d16af260"
+                    },
+                    "title": {
+                        "S": "The Road"
+                    },
+                    "author": {
+                        "S": "Lois Lowry"
+                    },
+                    "publicationYear": {
+                        "N": "2009"
+                    },
+                    "views": {
+                        "N": "63"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "3c0dd23e-5d9f-46b1-a8dc-9b79a0b59118"
+                    },
+                    "title": {
+                        "S": "It"
+                    },
+                    "author": {
+                        "S": "Orson Scott Card"
+                    },
+                    "publicationYear": {
+                        "N": "1930"
+                    },
+                    "views": {
+                        "N": "86"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "eb3ebc97-1906-4b18-88cb-c2f0e4412cb1"
+                    },
+                    "title": {
+                        "S": "The Stand"
+                    },
+                    "author": {
+                        "S": "Ursula K. Le Guin"
+                    },
+                    "publicationYear": {
+                        "N": "1955"
+                    },
+                    "views": {
+                        "N": "59"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "0b1258b0-5340-4211-87f2-b152e3517e95"
+                    },
+                    "title": {
+                        "S": "The Shining"
+                    },
+                    "author": {
+                        "S": "Isaac Asimov"
+                    },
+                    "publicationYear": {
+                        "N": "1954"
+                    },
+                    "views": {
+                        "N": "0"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "9ed75616-829f-40ee-bd62-547e45e29d79"
+                    },
+                    "title": {
+                        "S": "A Clockwork Orange"
+                    },
+                    "author": {
+                        "S": "George Orwell"
+                    },
+                    "publicationYear": {
+                        "N": "1967"
+                    },
+                    "views": {
+                        "N": "33"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "6e6b0925-5d08-4089-aa58-a27412b381a5"
+                    },
+                    "title": {
+                        "S": "The Giver"
+                    },
+                    "author": {
+                        "S": "Frank Herbert"
+                    },
+                    "publicationYear": {
+                        "N": "2009"
+                    },
+                    "views": {
+                        "N": "57"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "4d111200-3940-47ad-b79d-8103f0b79eff"
+                    },
+                    "title": {
+                        "S": "Ender\u2019s Game"
+                    },
+                    "author": {
+                        "S": "J.R.R. Tolkien"
+                    },
+                    "publicationYear": {
+                        "N": "2011"
+                    },
+                    "views": {
+                        "N": "20"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "db2c8de5-29b4-4cfc-b6ed-e1d679aedf09"
+                    },
+                    "title": {
+                        "S": "The Left Hand of Darkness"
+                    },
+                    "author": {
+                        "S": "Aldous Huxley"
+                    },
+                    "publicationYear": {
+                        "N": "1987"
+                    },
+                    "views": {
+                        "N": "49"
+                    }
+                }
+            }
+        },
+        {
+            "PutRequest": {
+                "Item": {
+                    "bookId": {
+                        "S": "c81b5361-43de-4c0c-b1e8-bfdc8d0fe29c"
+                    },
+                    "title": {
+                        "S": "I, Robot"
+                    },
+                    "author": {
+                        "S": "Ray Bradbury"
+                    },
+                    "publicationYear": {
+                        "N": "1945"
+                    },
+                    "views": {
+                        "N": "64"
+                    }
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,51 @@
+🔍 RASTREANDO STACK TRACES DE TIMERS...
+
+📦 Cargando NestJS con rastreador de timers...
+
+
+⏰ setTimeout 1 creado (0ms):
+📍 at Module._compile (node:internal/modules/cjs/loader:1358:14)
+
+⏰ setTimeout 2 creado (10000ms):
+📍 at Module._compile (node:internal/modules/cjs/loader:1358:14)
+
+⏰ setTimeout 3 creado (10000ms):
+📍 No se pudo identificar el caller
+
+⏰ setTimeout 4 creado (10000ms):
+📍 No se pudo identificar el caller
+
+⏰ setTimeout 5 creado (10000ms):
+📍 at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+⏰ setTimeout 6 creado (10000ms):
+📍 No se pudo identificar el caller
+
+⏰ setTimeout 7 creado (32746347ms):
+📍 No se pudo identificar el caller
+
+🎯 RESUMEN FINAL:
+Total de timers creados: 7
+
+📈 Todos los timers detectados:
+
+   Timer 1: setTimeout - 0ms
+   📍 at Module._compile (node:internal/modules/cjs/loader:1358:14)
+
+   Timer 2: setTimeout - 10000ms
+   📍 at Module._compile (node:internal/modules/cjs/loader:1358:14)
+
+   Timer 3: setTimeout - 10000ms
+   📍 No se pudo identificar el caller
+
+   Timer 4: setTimeout - 10000ms
+   📍 No se pudo identificar el caller
+
+   Timer 5: setTimeout - 10000ms
+   📍 at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+
+   Timer 6: setTimeout - 10000ms
+   📍 No se pudo identificar el caller
+
+   Timer 7: setTimeout - 32746347ms
+   📍 No se pudo identificar el caller

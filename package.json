@@ -1,0 +1,99 @@
+{
+  "name": "nestjs-aws-dynamodb",
+  "version": "0.0.1",
+  "description": "",
+  "author": "",
+  "private": true,
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  },
+  "scripts": {
+    "build": "nest build",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "start": "nest start",
+    "start:dev": "nest start --watch",
+    "start:debug": "nest start --debug --watch",
+    "start:prod": "node dist/main",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
+    "migration:generate": "npm run typeorm migration:generate -d src/config/typeorm.config.ts",
+    "migration:run": "npm run typeorm migration:run -d src/config/typeorm.config.ts",
+    "dynamo:seed": "awslocal dynamodb batch-write-item --request-items file:///home/stephanyes/Desktop/Backend/nestjs-aws-dynamodb/databases/DYNAMO/AWS-JSON-FILES/dynamo_books_seed.json",
+    "dynamo:table": "awslocal dynamodb create-table --cli-input-json file:///home/stephanyes/Desktop/Backend/nestjs-aws-dynamodb/databases/DYNAMO/AWS-JSON-FILES/create-table.json",
+    "postgres:seed": "docker exec -i nestjs-aws-dynamodb-postgres-1 psql -U postgres -d test < /home/stephanyes/Desktop/Backend/nestjs-aws-dynamodb/databases/POSTGRES/seed.sql"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.856.0",
+    "@nestjs/class-validator": "^0.13.4",
+    "@nestjs/common": "^11.1.5",
+    "@nestjs/config": "^4.0.2",
+    "@nestjs/core": "^11.1.5",
+    "@nestjs/mapped-types": "*",
+    "@nestjs/platform-express": "^11.1.5",
+    "@nestjs/schedule": "^6.0.0",
+    "@nestjs/swagger": "^11.2.0",
+    "@nestjs/typeorm": "^11.0.0",
+    "aws-sdk": "^2.1692.0",
+    "axios": "^1.11.0",
+    "axios-retry": "^4.5.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.2",
+    "pg": "^8.16.3",
+    "pino": "^9.7.0",
+    "pino-http": "^10.5.0",
+    "reflect-metadata": "^0.2.2",
+    "request-ip": "^3.3.0",
+    "rxjs": "^7.8.2",
+    "uuid": "^11.1.0"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.8",
+    "@nestjs/schematics": "^11.0.5",
+    "@nestjs/testing": "^11.1.5",
+    "@swc/cli": "^0.7.8",
+    "@swc/core": "^1.13.3",
+    "@types/express": "^5.0.3",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.1.0",
+    "@types/supertest": "^6.0.3",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
+    "@typescript-eslint/parser": "^8.38.0",
+    "eslint": "^9.32.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.3",
+    "jest": "^30.0.5",
+    "pino-pretty": "^13.0.0",
+    "prettier": "^3.6.2",
+    "source-map-support": "^0.5.21",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.0",
+    "ts-loader": "^9.5.2",
+    "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.8.3"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".*\\.spec\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}

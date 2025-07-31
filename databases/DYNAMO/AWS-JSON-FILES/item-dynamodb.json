@@ -1,0 +1,6 @@
+{
+	"user_id": { "S": "123abc" },
+	"timestamp": { "N": "1722279387" },
+	"content": { "S": "This is a content text" },
+	"title":  { "S": "Maximum Effort!" }
+}

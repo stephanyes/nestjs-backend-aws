@@ -1,0 +1,48 @@
+version: '3'
+services:
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=dynamodb
+    volumes:
+      - ./databases/DYNAMO:/scripts
+    healthcheck:
+      test: ["CMD", "awslocal", "dynamodb", "list-tables"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  postgres:
+    image: postgres:16
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: test
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./databases/POSTGRES:/docker-entrypoint-initdb.d
+
+  seed-dynamo:
+    image: amazon/aws-cli
+    depends_on:
+      localstack:
+        condition: service_healthy
+    environment:
+      - AWS_REGION=us-east-1
+      - AWS_ACCESS_KEY_ID=dummy
+      - AWS_SECRET_ACCESS_KEY=dummy
+    volumes:
+      - ./databases/DYNAMO:/scripts
+    entrypoint: >
+      sh -c "
+        aws --endpoint-url=http://localstack:4566 dynamodb create-table --cli-input-json file:///scripts/create-table.json &&
+        aws --endpoint-url=http://localstack:4566 dynamodb batch-write-item --request-items file:///scripts/dynamo_books_seed.json
+      "
+
+volumes:
+  pgdata:
+
