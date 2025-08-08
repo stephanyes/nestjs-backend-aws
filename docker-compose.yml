@@ -26,6 +26,19 @@ services:
       - pgdata:/var/lib/postgresql/data
       - ./databases/POSTGRES:/docker-entrypoint-initdb.d
 
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   seed-dynamo:
     image: amazon/aws-cli
     depends_on:
@@ -45,4 +58,4 @@ services:
 
 volumes:
   pgdata:
-
+  redisdata:
