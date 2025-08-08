@@ -194,4 +194,20 @@ export class RedisService implements OnModuleDestroy {
   async llen(key: string): Promise<number> {
     return this.publisherClient.llen(key);
   }
+
+  async hincrby(key: string, field: string, increment: number): Promise<number> {
+  return this.publisherClient.hincrby(key, field, increment);
+  }
+
+  async zrem(key: string, ...members: string[]): Promise<number> {
+    return this.publisherClient.zrem(key, ...members);
+  }
+
+  async zremrangebyscore(key: string, min: string, max: string): Promise<number> {
+    return this.publisherClient.zremrangebyscore(key, min, max);
+  }
+
+  async zremrangebyrank(key: string, start: number, stop: number): Promise<number> {
+    return this.publisherClient.zremrangebyrank(key, start, stop);
+  }
 }

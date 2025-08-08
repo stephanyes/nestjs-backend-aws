@@ -14,6 +14,10 @@ import { BookWithLogsDto } from './dto/book-log.dto';
 import { CreateBookLogDto } from './dto/create-book-log.dto';
 import { PaginationQueryDto } from './dto/pagination-query.dto';
 import { Book } from './entities/book.entity';
+import { BookEventPublisher } from '../events/publishers/book-event.publisher';
+import { CacheService } from '../cache/services/cache.service';
+
+
 
 
 
@@ -29,6 +33,8 @@ export class BookService {
     @InjectRepository(BookLog)
     private readonly bookLogRepository: Repository<BookLog>, 
     private readonly dynamoService: DynamoService,
+    private readonly eventPublisher: BookEventPublisher,
+    private readonly cacheService: CacheService,
   ) {
     this.client = this.dynamoService.getClient();
     this.tableName = this.dynamoService.getTableName();
@@ -46,7 +52,7 @@ export class BookService {
         publicationYear: createBookDto.publicationYear,
       },
     };
-
+    console.log(params)
     try {
       await this.client.put(params).promise();
 
@@ -65,8 +71,18 @@ export class BookService {
         title: createBookDto.title,
       });
 
+      await this.eventPublisher.publishBookCreated(
+        bookId,
+        {
+          title: createBookDto.title,
+          author: createBookDto.author,
+          publicationYear: createBookDto.publicationYear
+        }
+      )
+
       return { success: true, bookId };
     } catch (error) {
+      console.log(error)
       this.logger.error('Error inserting book:', error);
       throw new Error('Could not create book');
     }
@@ -75,6 +91,11 @@ export class BookService {
   async findAll() {
     try {
       const results = await this.client.scan({ TableName: this.tableName }).promise();
+      
+      const bookCount = results.Items?.length ?? 0;
+      if (bookCount > 0) {
+        await this.eventPublisher.publishBooksListed(bookCount);
+      }
 
       // Log individual por cada libro leído
       for (const item of results.Items ?? []) {
@@ -113,6 +134,16 @@ export class BookService {
         title: result.Item.title,
       });
 
+      await this.eventPublisher.publishBookViewed(
+        bookId,
+        {
+          title: result.Item.title,
+          author: result.Item.author,
+          views: result.Item.views,
+          // userId: userId  // Cuando tengas autenticación
+        }
+      );
+
       const logs = await this.bookLogRepository.find({
         where: { bookId },
         order: { timestamp: 'DESC' },
@@ -134,6 +165,7 @@ export class BookService {
       if (!existing.Item) {
         throw new NotFoundException(`Book with ID ${bookId} not found`);
       }
+      const previousData = existing.Item;
       const updated = await this.client.update({
         TableName: this.tableName,
         Key: { bookId },
@@ -165,6 +197,23 @@ export class BookService {
         author: updated.Attributes?.author,
         title: updated.Attributes?.title,
       });
+
+      const changes: any = {};
+      if (previousData.title !== updateBookDto.title) {
+        changes.title = updateBookDto.title;
+      }
+      if (previousData.author !== updateBookDto.author) {
+        changes.author = updateBookDto.author;
+      }
+      if (previousData.publicationYear !== updateBookDto.publicationYear) {
+        changes.publicationYear = updateBookDto.publicationYear;
+      }
+
+      await this.eventPublisher.publishBookUpdated(
+        bookId,
+        changes,
+        previousData
+      );
 
       return updated.Attributes;
     } catch (error) {
@@ -202,6 +251,11 @@ export class BookService {
         views: updatedViews,
       });
 
+      await this.eventPublisher.publishViewsUpdated(
+        bookId,
+        updatedViews
+      );
+
       return { views: updatedViews };
     } catch (error) {
       console.error(`Error updating views count for book with ID ${bookId}:`, error);
@@ -215,6 +269,7 @@ export class BookService {
         .get({ TableName: this.tableName, Key: { bookId } })
         .promise();
 
+      const bookData = existing.Item;
       await this.client
         .delete({
           TableName: this.tableName,
@@ -230,6 +285,11 @@ export class BookService {
         author: existing.Item?.author,
         title: existing.Item?.title,
       });
+
+      await this.eventPublisher.publishBookDeleted(
+        bookId,
+        bookData  // Pasar todo el objeto del libro antes de eliminarlo
+      );
 
       return { success: true };
     } catch (error) {
@@ -286,6 +346,12 @@ export class BookService {
         console.warn('Some items were not processed:', result.UnprocessedItems);
       }
 
+      const bookIds = createBookDtos.map((_, index) => writeRequests[index].PutRequest.Item.bookId);
+      await this.eventPublisher.publishBatchCreated(
+        bookIds,
+        bookIds.length
+      );
+
       return { success: true };
     } catch (error) {
       console.error('Error performing batch write:', error);
@@ -317,6 +383,13 @@ export class BookService {
         });
       }
 
+      if (items.length > 0) {
+        const bookIds = items.map(item => item.bookId);
+        await this.eventPublisher.publishBatchViewed(
+          bookIds,
+          items.length
+        );
+      }
       return items;
     } catch (error) {
       console.error('Error performing batch read:', error);
@@ -346,6 +419,10 @@ export class BookService {
           author: item.author,
           title: item.title,
         });
+      }
+
+      if (result.Items && result.Items.length > 0) {
+        await this.eventPublisher.publishAuthorSearched(author, year, result.Items.length);
       }
 
       return result.Items;
@@ -387,6 +464,8 @@ export class BookService {
   }
 
   async syncAllFromPostgresToDynamo(): Promise<{ synced: number; skipped: number }> {
+    await this.eventPublisher.publishSyncStarted('postgres');
+
     const books = await this.bookRepository.find();
     let synced = 0;
     let skipped = 0;
@@ -446,13 +525,18 @@ export class BookService {
       }
     }
 
+    await this.eventPublisher.publishSyncCompleted({
+      synced,
+      skipped,
+      source: 'postgres'
+    });
+
     this.logger.warn(`Postgres → DynamoDB: ${synced} updated, ${skipped} skipped`);
     return { synced, skipped };
   }
 
-
-
   async syncAllFromDynamoToPostgres(): Promise<{ synced: number; skipped: number }> {
+    await this.eventPublisher.publishSyncStarted('dynamodb');
     const result = await this.client.scan({ TableName: this.tableName }).promise();
     const dynamoItems = result.Items ?? [];
 
@@ -481,7 +565,11 @@ export class BookService {
         skipped++;
       }
     }
-
+    await this.eventPublisher.publishSyncCompleted({
+      synced,
+      skipped,
+      source: 'dynamodb'
+    });
     this.logger.warn(`DynamoDB → Postgres: ${synced} updated, ${skipped} skipped`);
     return { synced, skipped };
   }
